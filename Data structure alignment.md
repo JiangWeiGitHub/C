@@ -167,7 +167,7 @@
 4. 如何修改编译器的默认对齐值？
 
     1. 在VC IDE中，可以这样修改：[Project]|[Settings]，c/c++选项卡Category的Code Generation选项的Struct Member Alignment中修改，默认是8字节。
-    2. 在编码时，可以这样动态修改：#pragma pack（注意：是pragma而不是progma）
+    2. 在编码时，可以这样动态修改：#pragma pack（注意：是`pragma`而不是`progma`）
 
 5. 针对字节对齐，我们在编程中如何考虑？
 
@@ -184,22 +184,22 @@
     }
     ```
     
-    reserved成员对我们的程序没有什么意义，它只是起到填补空间以达到字节对齐的目的，当然即使不加这个成员通常编译器也会给我们自动填补对齐，我们自己加上它只是起到显式的提醒作用。
+    `reserved`成员对我们的程序没有什么意义，它只是起到填补空间以达到字节对齐的目的，当然即使不加这个成员通常编译器也会给我们自动填补对齐，我们自己加上它只是起到显式的提醒作用。
 
 6. 字节对齐可能带来的隐患：
 
     代码中关于对齐的隐患，很多是隐式的。比如在强制类型转换的时候。例如：
         
-        ```
-        unsigned int i = 0x12345678；
-        unsigned char *p = NULL；
-        unsigned short *p1 = NULL；
-        
-        p = &i；
-        *p = 0x00；
-        p1 = (unsigned short *)(p+1)；
-        *p1 = 0x0000；
-        ```
+    ```
+    unsigned int i = 0x12345678；
+    unsigned char *p = NULL；
+    unsigned short *p1 = NULL；
+    
+    p = &i；
+    *p = 0x00；
+    p1 = (unsigned short *)(p+1)；
+    *p1 = 0x0000；
+    ```
         
     最后两句代码，从奇数边界去访问unsigned short型变量，显然不符合对齐的规定。
     
