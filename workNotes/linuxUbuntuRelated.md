@@ -185,6 +185,26 @@
     则直接输入如下命令安装即可：
 
     `sudo apt-get install openssh-serser`
+    
+    如果想直接通过root用户登录，则
+    
+    1. passwd
+    
+    2. nano /etc/ssh/sshd_config
+    
+    ```
+    # Logging
+    SyslogFacility AUTH
+    LogLevel INFO
+
+    # Authentication:
+    LoginGraceTime 120
+    #PermitRootLogin prohibit-password
+    PermitRootLogin yes
+
+    StrictModes yes
+
+    ```
 
 
 5. ubuntu中如何将终端快捷方式添加到右键
